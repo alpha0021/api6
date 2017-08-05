@@ -24,8 +24,11 @@ router.post('/polices',function(req,res,next){
 //update a police
 
 router.put('/polices/:id',function(req,res,next){
-  Police.findByAndUpdate({_id:req.params.id}).then(function(police){
-    res.send(police);
+  Police.findByIdAndUpdate({_id:req.params.id},req.body).then(function(){
+    Police.findOne({_id:req.params.id}).then(function(police){
+          res.send(police);
+    });
+
   });
 });
 
@@ -33,7 +36,7 @@ router.put('/polices/:id',function(req,res,next){
 
 
 router.delete('/polices/:id',function(req,res,next){
-  Police.findByAndRemove({_id:req.params.id}).then(function(police){
+  Police.findByIdAndRemove({_id:req.params.id}).then(function(police){
     res.send(police);
   });
 });
